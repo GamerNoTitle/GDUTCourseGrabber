@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>配置管理</title>
+    <title>GDUT抢课助手 | GamerNoTitle</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>配置管理</h1>
+        <img src="{{ url_for('static', filename='favicon.png') }}" height="200px" width="200px"></img>
+        <h1>GDUT抢课助手：配置管理</h1>
+        <p>如果你不会用本程序，请访问 <a href="https://flowus.cn/4aa45f68-3c81-4d81-a5c6-5e35ae370aee">https://flowus.cn/4aa45f68-3c81-4d81-a5c6-5e35ae370aee</a> 查看</p>
+        <p>Github开源地址：<a href="https://github.com/GamerNoTitle/GDUTCourseGrabber">https://github.com/GamerNoTitle/GDUTCourseGrabber</a></p>
+        <br>
         <form id="config-form" action="{{ url_for('update_config') }}" method="post">
             <div class="form-group">
                 <label for="cookie">Cookie:</label>
