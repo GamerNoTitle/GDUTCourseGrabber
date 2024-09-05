@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 import httpx
 import asyncio
 import threading
+import webbrowser
 import json
 import os
 import time
@@ -227,5 +228,10 @@ def latest_log():
         return jsonify({"logs": logs})
     return jsonify({"logs": ""})
 
+def open_browser():
+    webbrowser.open_new("http://127.0.0.1:5000")
+
+
 if __name__ == "__main__":
+    open_browser()
     app.run(debug=True)
