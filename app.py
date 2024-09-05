@@ -28,6 +28,7 @@ def load_config():
         with open(config_path, 'r', encoding='utf-8') as f:
             return json.load(f)
     else:
+        save_config({"account": {"cookie": ""}, "delay": 0.5, "courses": []})
         return {"account": {"cookie": ""}, "delay": 0.5, "courses": []}
 
 # 保存配置
