@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>配置管理</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>配置管理</h1>
+        <form id="config-form" action="{{ url_for('update_config') }}" method="post">
+            <div class="form-group">
+                <label for="cookie">Cookie:</label>
+                <input type="text" id="cookie" name="cookie" value="{{ config.account.cookie }}" required>
+                <button type="button" class="btn" id="fetch-courses-btn">获取课程列表</button>
+            </div>
+            <div id="courses-container">
+                {% for course in config.courses %}
+                <div class="course-entry">
+                    <input type="text" name="kcrwdm" placeholder="课程ID" value="{{ course.kcrwdm }}" required>
+                    <input type="text" name="kcmc" placeholder="课程名称" value="{{ course.kcmc }}" required>
+                    <input type="text" name="teacher" placeholder="老师名字" value="{{ course.teacher }}" required>
+                    <button type="button" class="btn remove-course" onclick="removeCourse(this)">-</button>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" class="btn add-course">添加课程 +</button>
+            <button type="submit" class="btn">更新配置</button>
+        </form>
+
+        <h3>可选课程列表</h3>
+        <div id="available-courses">
+            <table>
+                <thead>
+                    <tr>
+                        <th>课程ID</th>
+                        <th>课程名称</th>
+                        <th>老师名字</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="available-courses-list">
+                    {% for course in available_courses %}
+                    <tr>
+                        <td>{{ course.kcrwdm }}</td>
+                        <td>{{ course.kcmc }}</td>
+                        <td>{{ course.teamx }}</td>
+                        <td>
+                            <form action="{{ url_for('add_course') }}" method="post">
+                                <input type="hidden" name="kcrwdm" value="${course.kcrwdm}">
+                                <input type="hidden" name="kcmc" value="${course.kcmc}">
+                                <input type="hidden" name="teacher" value="${course.teamx || '未知'}">
+                                <button type="submit" class="btn">添加</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="control-buttons">
+            <button type="button" class="btn" id="start-qk-btn">开始抢课</button>
+            <button type="button" class="btn" id="stop-qk-btn">停止抢课</button>
+        </div>
+
+        <div class="logs">
+            <h3>日志</h3>
+            <pre id="log-container">{{ logs | safe }}</pre>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
