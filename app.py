@@ -37,7 +37,10 @@ def save_config(config):
     with open(config_path, 'w', encoding='utf-8') as f:
         json.dump(config, f, ensure_ascii=False, indent=4)
 
+timestamp_log = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 config = load_config()
+with open(log_file_path, "wt", encoding="utf8") as f:
+    pass
 
 # 写入日志
 def log_message(message):
@@ -45,7 +48,7 @@ def log_message(message):
     log_entry = f"[{timestamp}] {message}"
     with open(log_file_path, 'a', encoding='utf-8') as log_file:
         log_file.write(log_entry + '\n')
-    with open(os.path.join(logs_dir, f"{timestamp.replace(':', '-')}.log"), 'w', encoding='utf-8') as new_log_file:
+    with open(os.path.join(logs_dir, f"{timestamp_log.replace(':', '-')}.log"), 'a', encoding='utf-8') as new_log_file:
         new_log_file.write(log_entry + '\n')
 
 # 异步获取课程列表
